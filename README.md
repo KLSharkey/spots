@@ -2,6 +2,7 @@
 A mobile web application that keeps track of your favorite locations utilizing the Google Maps API.
 
 #TEAM MEMBERS
+
 1) Joe Ylagan
 2) Logan Feiler
 3) Kristen Sharkey
