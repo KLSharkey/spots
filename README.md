@@ -1,6 +1,12 @@
 # spots
 A mobile web application that keeps track of your favorite locations utilizing the Google Maps API.
 
+#TEAM MEMBERS
+1) Joe Ylagan
+2) Logan Feiler
+3) Kristen Sharkey
+4) Ivy Patton
+
 # USER STORIES
 
 1)  George wants to create a user profile with a username and password so that he can login and start saving his favorite locations.
