@@ -1,6 +1,6 @@
 package com.liftoff.spots.models;
 
-import javax.persistence.*;
+/*import javax.persistence.*;*/
 import javax.validation.constraints.NotNull;
 
    /*@Entity*/
