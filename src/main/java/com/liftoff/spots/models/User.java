@@ -3,11 +3,11 @@ package com.liftoff.spots.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-'''@Entity'''
+   /*@Entity*/
 public class User {
 
-   ''' @Id'''
-   ''' @GeneratedValue'''
+   /*@Id
+    @GeneratedValue*/
     private int id;
 
     @NotNull
