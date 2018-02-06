@@ -1,13 +1,13 @@
 package com.liftoff.spots.models;
 
-/*import javax.persistence.*;*/
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-   /*@Entity*/
+@Entity //store class in DB
 public class User {
 
-   /*@Id
-    @GeneratedValue*/
+    @Id
+    @GeneratedValue
     private int id;
 
     @NotNull
@@ -30,16 +30,20 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
