@@ -16,7 +16,7 @@ public class Spot {
     private int id;
 
     @ManyToOne
-    private Spot spot;
+    private User user;
 
     @NotNull
     private String spotName;
