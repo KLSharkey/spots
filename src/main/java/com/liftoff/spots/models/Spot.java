@@ -3,6 +3,7 @@ package com.liftoff.spots.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity //store class in DB
@@ -13,6 +14,9 @@ public class Spot {
     @Id
     @GeneratedValue
     private int id;
+
+    @ManyToOne
+    private Spot spot;
 
     @NotNull
     private String spotName;

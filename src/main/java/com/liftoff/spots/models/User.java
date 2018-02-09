@@ -2,6 +2,8 @@ package com.liftoff.spots.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //store class in DB
 public class User {
@@ -9,6 +11,10 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
+
+    @OneToMany
+    @JoinColumn(name = "user_ID")
+    private List<Spot> spots = new ArrayList<>();
 
     @NotNull
     private String name;
