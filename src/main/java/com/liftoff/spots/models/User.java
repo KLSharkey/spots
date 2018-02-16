@@ -2,6 +2,7 @@ package com.liftoff.spots.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +18,24 @@ public class User {
     private List<Spot> spots = new ArrayList<>();
 
     @NotNull
+    @Size(min=3, max=15)
     private String name;
 
     @NotNull
+    @Size(min=1, message = "You must sign up with your email.")
     private String email;
 
     @NotNull
+    @Size(min=3, message = "Please enter in a valid password.")
     private String password;
 
-    public User(int id, String name, String email, String password) {
-        this.id = id;
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
+
+    public User() {}
 
     public int getId() {
         return id;

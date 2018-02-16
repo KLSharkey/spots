@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+
+    <body class="container">
+
+        <h1 th:text="${title}"></h1>
+
+       <form method="post">
+           <div>
+               <tr>
+                   <label>
+                       <input placeholder="Username/Email"/>
+                   </label>
+               </tr>
+           </div>
+           <div>
+               <tr>
+                   <label>
+                       <input placeholder="Password"/>
+                   </label>
+               </tr>
+           </div>
+
+           <input type="submit" value="Continue"/>
+       </form>
+    
+    </body>
+</html>
