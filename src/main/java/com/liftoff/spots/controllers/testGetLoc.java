@@ -1,9 +1,13 @@
 package com.liftoff.spots.controllers;
 
+import com.liftoff.spots.models.LatLng;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 @Controller
@@ -22,5 +26,26 @@ public class testGetLoc {
 
             return "geolocation/getLocation";
         }
+
+    @RequestMapping(value = "test")
+    public @ResponseBody String processForm(@RequestBody LatLng jsonObject) {
+            double latitude = jsonObject.getLatitude();
+            double longitude = jsonObject.getLongitude();
+            System.out.println(longitude);
+            System.out.print(latitude);
+            //System.out.println(jsonObject.toString());
+            //System.out.println(request.getParameter("latitude"));
+
+            //System.out.println(jsonObject.toString());
+            //System.out.println(jsonObject.getClass().getName());
+            /*System.out.println(jsonObject.getLatitude());
+            LatLng newLatLng = new LatLng(jsonObject.getLatitude(), jsonObject.getLongitude());
+            double lat = newLatLng.getLatitude();
+            double lng = newLatLng.getLongitude();
+            System.out.println(lat);*/
+
+            return "test";
+
+    }
 
     }
