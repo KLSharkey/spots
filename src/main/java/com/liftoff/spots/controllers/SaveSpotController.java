@@ -1,6 +1,9 @@
 package com.liftoff.spots.controllers;
 
-import com.liftoff.spots.models.LatLng;
+
+import com.liftoff.spots.models.Spot;
+import com.liftoff.spots.models.data.spotDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +15,10 @@ import java.util.HashSet;
 
 @Controller
 @RequestMapping(value = "")
-public class testGetLoc {
+public class SaveSpotController {
 
+    @Autowired
+    private spotDAO spotDAO;
 
         //@Autowired
         //private com.liftoff.spots.models.data.userDao userDao;
@@ -28,21 +33,17 @@ public class testGetLoc {
         }
 
     @RequestMapping(value = "test")
-    public @ResponseBody String processForm(@RequestBody LatLng jsonObject) {
+    public @ResponseBody String processForm(@RequestBody Spot jsonObject) {
             double latitude = jsonObject.getLatitude();
             double longitude = jsonObject.getLongitude();
+            /*String spotName = jsonObject.getSpotName();
+            String spotInfo = jsonObject.getSpotInfo();
             System.out.println(longitude);
-            System.out.print(latitude);
-            //System.out.println(jsonObject.toString());
-            //System.out.println(request.getParameter("latitude"));
+            System.out.println(latitude);
+            System.out.println(spotName);
+            System.out.println(spotInfo);*/
 
-            //System.out.println(jsonObject.toString());
-            //System.out.println(jsonObject.getClass().getName());
-            /*System.out.println(jsonObject.getLatitude());
-            LatLng newLatLng = new LatLng(jsonObject.getLatitude(), jsonObject.getLongitude());
-            double lat = newLatLng.getLatitude();
-            double lng = newLatLng.getLongitude();
-            System.out.println(lat);*/
+            spotDAO.save(jsonObject);
 
             return "test";
 
