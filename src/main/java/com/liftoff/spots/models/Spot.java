@@ -5,10 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity //store class in DB
 
-public class Spot {
+public class Spot implements Serializable {
 
 
     @Id
@@ -34,7 +35,7 @@ public class Spot {
 
 
 
-    public Spot(int id, String spotName, String spotInfo, double Longitude, double Latitude, boolean Enable) {
+    public Spot(String spotName, String spotInfo, double Longitude, double Latitude) {
         this.id = id;
         this.spotName = spotName;
         this.spotInfo = spotInfo;
@@ -42,6 +43,45 @@ public class Spot {
         this.Latitude = Latitude;
         this.Enable = Enable;
 
+    }
+    public Spot(){
+
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isEnable() {
+        return Enable;
+    }
+
+    public void setEnable(boolean enable) {
+        Enable = enable;
+    }
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
     public int getId() {

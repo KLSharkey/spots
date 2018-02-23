@@ -6,36 +6,65 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta charset="utf-8"/> -->
-    <title>YOUR AWESOME SITE</title>
+    <title>Map my Spot</title>
 </head>
 <body>
 
-<p>Click the button to get your coordinates.</p>
+<form id="userInput" method="post" action ="">
+<label th:for="spotName">Name your spot: </label><br/>
+<input th:type="text" th:name="spotName" id="spotName"/><br/>
+<label th:for="spotInfo">Any info about you spot: </label><br/>
+<textarea rows="4" cols="50" th:name="spotInfo" id="spotInfo">
+</textarea><br/>
 
-<button th:onclick="${'getLocation()'}">Try It</button>
+    <p>Click the button to save your spot.</p><br/>
 
-<p id="demo"></p>
+
+    <input type="button" value="Save Spot!" name="Save" id="Save"/>
+
+</form>
+
+<p id="demo"></p><br/>
+
+<!--<button th:onclick="${'getLocation()'}">Save Spot!</button>-->
+
+
 <!--<main id="root"></main>-->
 </body>
 <script th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
 <script th:inline="javascript" >
     /*<![CDATA[*/
     //var jsonObject;
+
     let x = document.getElementById("demo");
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
+
+
+    //let n = 1;
+    document.getElementById('Save').onclick = start;
+
+    function start() {
+        console.log(123);
+
+        getLocation()
     }
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
     function showPosition(position) {
+        console.log(456);
         x.innerHTML = "Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
+            "<br/>Longitude: " + position.coords.longitude;
+
         lat = position.coords.latitude;
         long = position.coords.longitude;
-
-        console.log(long, lat);
+        window.y = document.getElementById("spotName").value;
+        window.z= document.getElementById("spotInfo").value;
+        console.log(long, lat, y, z);
         //return latitude, longitude
         //jsonObject = {
             //"latitude": window.lat,
@@ -52,10 +81,14 @@
     //var longitude = result.longitude;
 
   let jsonObject = {
-       "latitude": lat,
-      "longitude": long
+      "spotName": z,
+      "spotInfo": y,
+      "longitude": long,
+       "latitude": lat
+
+      //"user_id: : num
    };
-console.log(lat, long);
+console.log(lat, long, y, z);
 
 
  $.ajax ({
