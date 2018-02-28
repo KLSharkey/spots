@@ -10,25 +10,27 @@
 </head>
 <body>
 
-<form id="userInput" method="post" action ="">
+<!--<form id="userInput" method="post" action ="">-->
+<form id="userInput" method="post" action ="getLocation/current">
 <label th:for="spotName">Name your spot: </label><br/>
 <input th:type="text" th:name="spotName" id="spotName"/><br/>
 <label th:for="spotInfo">Any info about you spot: </label><br/>
 <textarea rows="4" cols="50" th:name="spotInfo" id="spotInfo">
 </textarea><br/>
 
-    <p>Click the button to save your spot.</p><br/>
+    <p id="buttonLabel" name="buttonLabel">Click the button to save your spot.</p><br/>
 
 
     <input type="button" value="Save Spot!" name="Save" id="Save"/>
 
 </form>
+<p id="savedSpot" name="savedSpot"></p>
 
 <div id="map" style="width:400px;height:400px;"></div>
 
 <p id="demo"></p><br/>
 
-<button value = "Save new location" id="newLocation" name = "newLocation">Save new Location</button>
+<!--<button value = "Save new location" id="newLocation" name = "newLocation">Save new Location</button>-->
 <!--<button th:onclick="${'getLocation()'}">Save Spot!</button>-->
 
 
@@ -44,6 +46,7 @@
     //var jsonObject;
 
     let x = document.getElementById("demo");
+    let savedSpot = document.getElementById("savedSpot");
 
 
     //let n = 1;
@@ -51,6 +54,9 @@
 
 
     function start() {
+        Save.parentNode.removeChild(Save);
+        buttonLabel.parentNode.removeChild(buttonLabel);
+        savedSpot.innerHTML = "Your spot was saved!";
         console.log(123);
 
         getLocation()
@@ -59,13 +65,13 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
+               x.innerHTML = "Geolocation is not supported by this browser.";
+           }
         }
 
     function showPosition(position) {
         console.log(456);
-        x.innerHTML = "Latitude: " + position.coords.latitude +
+       x.innerHTML = "Latitude: " + position.coords.latitude +
             "<br/>Longitude: " + position.coords.longitude;
         lat = position.coords.latitude;
         long = position.coords.longitude;
@@ -85,7 +91,8 @@
 
 
     $.ajax ({
-        url: "test.html",
+        //url: "test.html",
+        url: "getLocation/current",
         type: "POST",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(jsonObject),
