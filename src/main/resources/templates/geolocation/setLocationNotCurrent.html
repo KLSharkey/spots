@@ -50,7 +50,8 @@
 
     let x = document.getElementById("demo");
     let savedSpot = document.getElementById("savedSpot");
-
+    var name = '<%= session.getAttribute("userLoggedIn") %>'
+    console.log(name);
 
     //let n = 1;
     document.getElementById('Save').onclick = SaveSpot;
