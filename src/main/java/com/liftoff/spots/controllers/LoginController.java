@@ -62,12 +62,8 @@ public class LoginController {
         }
 
         userDao.save(newUser);
-        //int userID = newUser.getId();
         HttpSession session = request.getSession();
         session.setAttribute("userLoggedIn", newUser);
-        //response.encodeRedirectURL("geolocation/notCurrent");
-        //Object username = session.getAttribute("userLoggedIn");
-        //System.out.println(username);
 
         return "redirect:../geolocation/notCurrent";
 

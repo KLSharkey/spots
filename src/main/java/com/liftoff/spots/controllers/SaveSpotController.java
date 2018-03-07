@@ -60,9 +60,6 @@ public class SaveSpotController {
     @RequestMapping(value = "notCurrent", method = RequestMethod.GET)
     public String displayLocationNotCurrent(Model model) {
 
-        //model.addAttribute("title", "Spots");
-        //model.addAttribute( "user", new User() );
-
         return "geolocation/setLocationNotCurrent";
     }
 
@@ -77,13 +74,6 @@ public class SaveSpotController {
         User myUser = (User) session.getAttribute("userLoggedIn");
         System.out.println(myUser.getEmail());
         jsonObject.setUser(myUser);
-
-            /*String spotName = jsonObject.getSpotName();
-            String spotInfo = jsonObject.getSpotInfo();
-            System.out.println(longitude);
-            System.out.println(latitude);
-            System.out.println(spotName);
-            System.out.println(spotInfo);*/
 
         spotDAO.save(jsonObject);
 
