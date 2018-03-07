@@ -52,6 +52,11 @@ public class Spot implements Serializable {
         return user;
     }
 
+    public int getUserID() {
+       int ID = getUser().getId();
+       return ID;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -103,4 +108,6 @@ public class Spot implements Serializable {
     public void setSpotInfo(String spotInfo) {
         this.spotInfo = spotInfo;
     }
+
+
 }

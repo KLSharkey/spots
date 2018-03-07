@@ -46,9 +46,44 @@ public class LoginController {
     public String displayLoginPage(Model model) {
 
         model.addAttribute("title", "Spots");
+        model.addAttribute(new User());
 
         return "login/userLogIn";
     }
+
+    @RequestMapping(value="existing", method = RequestMethod.POST)
+    //public String formProcessLoginPage(Model model, @ModelAttribute("user") User user,HttpServletRequest request,
+                                      // HttpServletResponse response) {
+
+    public String formProcessLoginPage(@ModelAttribute @Valid User myUser, Errors errors,
+                Model model, HttpServletRequest request, String password,
+                HttpServletResponse response){
+        model.addAttribute("title", "Login");
+            Iterable<User> users = userDao.findAll();
+
+            for (User user : users) {
+                if (user.getEmail().equals(myUser.getEmail())) {
+                    if (user.getPassword().equals(myUser.getPassword())) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("userLoggedIn", user);
+                        System.out.println(user.getEmail());
+
+                        return "redirect: ../../../MySpots";
+
+                    } else {
+                        //return login page with password error
+                        model.addAttribute("title", "Login");
+                        model.addAttribute("passwordError", "Incorrect password.");
+                        return "";
+                    }
+                }
+            }
+            //return login page with username error
+            model.addAttribute("title", "Login");
+            model.addAttribute("usernameError", "An account doesn't exist under that email.");
+            return "";
+        }
+
 
     @RequestMapping(value="signup", method = RequestMethod.POST)
     public String processSignUpForm(@ModelAttribute @Valid User newUser,
@@ -65,7 +100,7 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute("userLoggedIn", newUser);
 
-        return "redirect:../geolocation/notCurrent";
+        return "redirect: ../../../MySpots";
 
     }
 

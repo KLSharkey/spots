@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body>
+<p>Welcome to your Spots!</p><br/>
+
+<button value="Create a new Spot" id="notCurrent" onclick="location.href = '../geolocation/notCurrent';">Add a Spot</button><br/>
+<!--<p th:unless="${mySpots} and ${mySpots.size()}">Not spots yet!</p>-->
+
+
+<table class="table">
+
+    <tr>
+        <th>Spot Name</th>
+        <th>Spot Info</th>
+
+    </tr>
+
+    <tr th:each="spot : ${mySpots}">
+        <td th:text="${spot.getSpotName()}"></td>
+        <td th:text="${spot.getSpotInfo()}"></td>
+
+
+    </tr>
+
+</table>
+
+
+
+
+</body>
+</html>

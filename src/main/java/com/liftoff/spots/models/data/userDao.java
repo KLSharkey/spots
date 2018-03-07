@@ -9,5 +9,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface userDao extends CrudRepository<User,Integer> { //stores User objects, keys are ints
-
+    User findByEmail(String email);
 }
