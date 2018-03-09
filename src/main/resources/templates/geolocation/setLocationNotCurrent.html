@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8"/> -->
+    <title>Map my Spot</title>
+</head>
+<body>
+
+<!--<form id="userInput" method="post" action ="">-->
+<form id="userInput" method="post" action ="notCurrent">
+    <label th:for="spotName">Name your spot: </label><br/>
+    <input th:type="text" th:name="spotName" id="spotName"/><br/>
+    <label th:for="spotInfo">Any info about you spot: </label><br/>
+    <textarea rows="4" cols="50" th:name="spotInfo" id="spotInfo">
+</textarea><br/>
+
+
+
+
+
+</form>
+<p id="savedSpot" name="savedSpot"></p>
+
+<div id="map" style="width:400px;height:400px;"></div>
+
+<p id="demo"></p><br/>
+
+<p id="buttonLabel" name="buttonLabel">Click the button to save your spot.</p><br/>
+<input type="button" value="Save Spot!" name="Save" id="Save"/>
+
+
+<!--<button value = "Save new location" id="newLocation" name = "newLocation">Save new Location</button>-->
+<!--<button th:onclick="${'getLocation()'}">Save Spot!</button>-->
+
+
+<!--<main id="root"></main>-->
+</body>
+
+
+<script th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyArfm36_TyrJ7GhWvZPVYcWYYc5_ou2daw&amp;sensor=false"> </script>
+
+<script th:inline="javascript" >
+    /*<![CDATA[*/
+    //var jsonObject;
+
+    let x = document.getElementById("demo");
+    let savedSpot = document.getElementById("savedSpot");
+
+
+    //let n = 1;
+    document.getElementById('Save').onclick = SaveSpot;
+    start();
+
+    function start() {
+        console.log(123);
+
+        getLocation()
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        console.log(456);
+        //x.innerHTML = "Latitude: " + position.coords.latitude +
+           // "<br/>Longitude: " + position.coords.longitude;
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        //window.y = document.getElementById("spotName").value;
+        //window.z= document.getElementById("spotInfo").value;
+
+
+        myMap(lat, long);
+    }
+
+    function myMap(lat, long) {
+        var location = {lat: lat, lng: long};
+        var mapOptions = {
+            center: new google.maps.LatLng(lat, long),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        }
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        addMarker(location, map);
+    }
+
+    function addMarker(location, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+        window.marker = new google.maps.Marker({
+            position: location,
+            label: "HERE",
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP
+        });
+        //var lat = marker.getPosition().lat();
+        //var lng = marker.getPosition().lng();
+
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+
+            console.log(event.latLng.lat());
+
+            console.log(event.latLng.lng());
+
+            long = event.latLng.lng();
+            lat = event.latLng.lat();
+            x.innerHTML = "Latitude: " + lat +
+                "<br/>Longitude: " + long;
+
+            //infoWindow.open(map, marker);
+
+        });}
+        function SaveSpot(){
+            window.y = document.getElementById("spotName").value;
+            window.z= document.getElementById("spotInfo").value;
+            Save.parentNode.removeChild(Save);
+            buttonLabel.parentNode.removeChild(buttonLabel);
+            savedSpot.innerHTML = "Your spot was saved!";
+
+        let jsonObject = {
+            "spotName": z,
+            "spotInfo": y,
+            "longitude": long,
+            "latitude": lat
+
+            //"user_id: : num
+        };
+        console.log(lat, long, y, z);
+
+
+        $.ajax ({
+            //url: "test.html",
+            url: "notCurrent",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            async: false,
+            cache: false,
+            processData: false,
+
+            //success: function (data) {
+            //return data;
+            //}
+
+
+        });}
+       /* myMap(lat, long);
+    }
+
+    function myMap(lat, long) {
+        var location = {lat: lat, lng: long};
+        var mapOptions = {
+            center: new google.maps.LatLng(lat, long),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        }
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        addMarker(location, map);
+    }
+
+    function addMarker(location, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+        window.marker = new google.maps.Marker({
+            position: location,
+            label: "HERE",
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP
+        });
+        //var lat = marker.getPosition().lat();
+        //var lng = marker.getPosition().lng();
+
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+
+            console.log(event.latLng.lat());
+
+            console.log(event.latLng.lng());
+
+            //infoWindow.open(map, marker);
+
+        });
+    };
+
+    //console.log(long, lat, y, z);
+
+    //return latitude, longitude
+    //jsonObject = {
+    //"latitude": window.lat,
+    //"longitude": window.long
+    //};
+    //return {
+    // latitude: lat,
+    // longitude: long
+    //}
+
+
+    //var result = showPosition();
+    //var latitude =result.latitude;
+    //var longitude = result.longitude;*/
+
+    /*let jsonObject = {
+        "spotName": z,
+        "spotInfo": y,
+        "longitude": long,
+         "latitude": lat
+
+        //"user_id: : num
+     };
+  console.log(lat, long, y, z);
+
+
+   $.ajax ({
+       url: "test.html",
+       type: "POST",
+       contentType: "application/json; charset=utf-8",
+       data: JSON.stringify(jsonObject),
+       async: false,
+       cache: false,
+       processData: false,
+
+       //success: function (data) {
+       //return data;
+       //}
+
+
+  });*/
+
+    /*]]>*/
+
+</script>
+
+
+</html>

@@ -14,28 +14,33 @@ import java.util.HashSet;
 
 
 @Controller
-@RequestMapping(value = "")
+//@RequestMapping(value = "")
+@RequestMapping(value = "geolocation")
 public class SaveSpotController {
 
     @Autowired
     private spotDAO spotDAO;
 
-        //@Autowired
-        //private com.liftoff.spots.models.data.userDao userDao;
+    //@Autowired
+    //private com.liftoff.spots.models.data.userDao userDao;
 
-        @RequestMapping(value = "getLocation", method = RequestMethod.GET)
-        public String displayLocation(Model model) {
+    //@RequestMapping(value = "getLocation", method = RequestMethod.GET)
+    @RequestMapping(value = "getLocation", method = RequestMethod.GET)
+    public String displayLocation(Model model) {
 
-            //model.addAttribute("title", "Spots");
-            //model.addAttribute( "user", new User() );
+        //model.addAttribute("title", "Spots");
+        //model.addAttribute( "user", new User() );
 
-            return "geolocation/getLocation";
-        }
+        return "geolocation/getLocation";
+    }
 
-    @RequestMapping(value = "test")
-    public @ResponseBody String processForm(@RequestBody Spot jsonObject) {
-            double latitude = jsonObject.getLatitude();
-            double longitude = jsonObject.getLongitude();
+    //@RequestMapping(value = "test")
+    @RequestMapping(value = "getLocation/current", method = RequestMethod.POST)
+    //public @ResponseBody String processFormCurrentSpot(@RequestBody Spot jsonObject) {
+    public @ResponseBody
+    String processFormCurrentSpot(@RequestBody Spot jsonObject) {
+        double latitude = jsonObject.getLatitude();
+        double longitude = jsonObject.getLongitude();
             /*String spotName = jsonObject.getSpotName();
             String spotInfo = jsonObject.getSpotInfo();
             System.out.println(longitude);
@@ -43,10 +48,41 @@ public class SaveSpotController {
             System.out.println(spotName);
             System.out.println(spotInfo);*/
 
-            spotDAO.save(jsonObject);
-
-            return "test";
-
-    }
+        spotDAO.save(jsonObject);
+        System.out.println("here");
+        return "";
 
     }
+
+    @RequestMapping(value = "notCurrent", method = RequestMethod.GET)
+    public String displayLocationNotCurrent(Model model) {
+
+        //model.addAttribute("title", "Spots");
+        //model.addAttribute( "user", new User() );
+
+        return "geolocation/setLocationNotCurrent";
+    }
+
+
+
+    @RequestMapping(value = "notCurrent", method = RequestMethod.POST)
+    public @ResponseBody
+    String processFormNotCurrent(@RequestBody Spot jsonObject) {
+        double latitude = jsonObject.getLatitude();
+        double longitude = jsonObject.getLongitude();
+            /*String spotName = jsonObject.getSpotName();
+            String spotInfo = jsonObject.getSpotInfo();
+            System.out.println(longitude);
+            System.out.println(latitude);
+            System.out.println(spotName);
+            System.out.println(spotInfo);*/
+
+        spotDAO.save(jsonObject);
+
+        return "";
+
+    }
+}
+
+
+
