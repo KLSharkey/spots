@@ -30,16 +30,39 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('mysql:mysql-connector-java')
+	compile('org.mariadb.jdbc:mariadb-java-client')
 	compile 'com.google.maps:google-maps-services:0.2.6'
+	compile 'org.apache.commons:commons-csv:1.5'
 	[group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1']
 	[group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1']
 	[group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1']
 	[group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-base', version: '2.4.1']
 	[group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.4.1']
 	[group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: '2.4.1']
+	//compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '7.0.47'
+	//compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+	//provided group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+	//provided group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
 	compile("org.webjars:jquery:2.0.3-1")
 	compile('org.webjars:bootstrap:3.3.7')
 	compile('org.webjars:jquery:2.2.1')
+/*https://mvnrepository.com/artifact/javax.servlet/jstl
+	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+// https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api
+	compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2'*/
+	//compile 'biz.paluch.redis:lettuce:4.4.0.Final'
+	// https://mvnrepository.com/artifact/org.springframework.session/spring-session
+	//compile group: 'org.springframework.session', name: 'spring-session', version: '1.0.0.RELEASE'
+// https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis
+	//compile group: 'org.springframework.session', name: 'spring-session-data-redis', version: '1.0.0.RELEASE'
+	//compile("org.springframework.boot:spring-boot-starter-data-redis")
+	//testCompile("junit:junit")
+	//compile group: 'com.hazelcast', name: 'hazelcast', version: '3.5'
+	//compile group: 'com.hazelcast', name: 'hazelcast-all', version: '2.4'
+
+
 }
 
 bootRun {

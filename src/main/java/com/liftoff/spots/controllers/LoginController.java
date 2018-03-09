@@ -11,11 +11,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
+@SessionAttributes("user")
 @RequestMapping(value="login")
 public class LoginController {
+
 
     @Autowired
     private userDao userDao;
@@ -39,7 +52,8 @@ public class LoginController {
 
     @RequestMapping(value="signup", method = RequestMethod.POST)
     public String processSignUpForm(@ModelAttribute @Valid User newUser,
-                                     Errors errors, Model model) {
+                                     Errors errors, HttpServletRequest request, HttpServletResponse response,
+                                    Model model) {
         if ( errors.hasErrors() ) {
             model.addAttribute( "errors", errors);
             model.addAttribute("title", "Spots");
@@ -48,8 +62,10 @@ public class LoginController {
         }
 
         userDao.save(newUser);
+        HttpSession session = request.getSession();
+        session.setAttribute("userLoggedIn", newUser);
 
-        return "redirect:signup";
+        return "redirect:../geolocation/notCurrent";
 
     }
 
