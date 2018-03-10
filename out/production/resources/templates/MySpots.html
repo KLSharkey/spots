@@ -20,6 +20,7 @@
     <tr th:each="spot : ${mySpots}">
         <td th:text="${spot.getSpotName()}"></td>
         <td th:text="${spot.getSpotInfo()}"></td>
+        <td><a th:href="@{'MySpots/ASpot?spotID='+ ${spot.getId()}}" style="display:block;">Check it out!</a></td>
 
 
     </tr>
@@ -30,4 +31,38 @@
 
 
 </body>
+<!--
+<script th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyArfm36_TyrJ7GhWvZPVYcWYYc5_ou2daw&amp;sensor=false"> </script>
+
+<script th:inline="javascript" >
+    /*<![CDATA[*/
+
+function start(spot){
+    var lat = spot.getLatitude();
+    var long = spot.getLongitude();
+    var spotID = spot.spotID;
+
+    let jsonObject = {
+        "longitude": long,
+        "latitude": lat
+    };
+
+    $.ajax ({
+        url: "/MySpots/ASpot?spotID={spotID}",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        async: false,
+        cache: false,
+        processData: false,
+
+    });
+    //start session ajax
+}
+
+    /*]]>*/
+</script>
+-->
+
 </html>

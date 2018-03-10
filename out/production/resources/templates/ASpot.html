@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+
+    <title>My Spot</title>
+</head>
+
+<body>
+<p th:text="${Latitude}">latitude</p>
+<p th:text="${Longitude}">longitude</p>
+
+    <!--<p id="buttonLabel" name="buttonLabel">Click the button to save your spot.</p><br/>-->
+
+<a href="../MySpots">
+    Back to My Spots
+</a>
+<p id="savedSpot" name="savedSpot"></p>
+
+<div id="map" style="width:400px;height:400px;"></div>
+
+<p id="demo"></p><br/>
+
+
+<!--<button value = "Save new location" id="newLocation" name = "newLocation">Save new Location</button>-->
+<!--<button th:onclick="${'getLocation()'}">Save Spot!</button>-->
+
+<!--<main id="root"></main>-->
+</body>
+
+
+<script th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyArfm36_TyrJ7GhWvZPVYcWYYc5_ou2daw&amp;sensor=false"> </script>
+
+<script th:inline="javascript" >
+    /*<![CDATA[*/
+    var latitude = /*[[${Latitude}]]*/ 'default';
+    var longtiude = /*[[${Longitude}]]*/ 'default';
+
+
+myMap(latitude, longtiude);
+
+
+
+        function myMap(lat, long) {
+            var location = {lat: lat, lng: long};
+            var mapOptions = {
+                center: new google.maps.LatLng(lat, long),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            }
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            addMarker(location, map);
+        }
+
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            window.marker = new google.maps.Marker({
+                position: location,
+                label: "HERE",
+                map: map,
+                animation: google.maps.Animation.DROP
+
+
+            });}
+
+
+    /*]]>*/
+
+</script>
+
+
+</html>
