@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body>
+<p>Welcome to your Spots!</p><br/>
+
+<button value="Create a new Spot" id="notCurrent" onclick="location.href = '../geolocation/notCurrent';">Add a Spot</button><br/>
+<!--<p th:unless="${mySpots} and ${mySpots.size()}">Not spots yet!</p>-->
+
+
+<table class="table">
+
+    <tr>
+        <th>Spot Name</th>
+        <th>Spot Info</th>
+
+    </tr>
+
+    <tr th:each="spot : ${mySpots}">
+        <td th:text="${spot.getSpotName()}"></td>
+        <td th:text="${spot.getSpotInfo()}"></td>
+        <td><a th:href="@{'MySpots/ASpot?spotID='+ ${spot.getId()}}" style="display:block;">Check it out!</a></td>
+
+
+    </tr>
+
+</table>
+
+
+
+
+</body>
+<!--
+<script th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyArfm36_TyrJ7GhWvZPVYcWYYc5_ou2daw&amp;sensor=false"> </script>
+
+<script th:inline="javascript" >
+    /*<![CDATA[*/
+
+function start(spot){
+    var lat = spot.getLatitude();
+    var long = spot.getLongitude();
+    var spotID = spot.spotID;
+
+    let jsonObject = {
+        "longitude": long,
+        "latitude": lat
+    };
+
+    $.ajax ({
+        url: "/MySpots/ASpot?spotID={spotID}",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        async: false,
+        cache: false,
+        processData: false,
+
+    });
+    //start session ajax
+}
+
+    /*]]>*/
+</script>
+-->
+
+</html>

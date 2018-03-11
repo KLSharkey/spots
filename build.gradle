@@ -46,6 +46,10 @@ dependencies {
 	compile("org.webjars:jquery:2.0.3-1")
 	compile('org.webjars:bootstrap:3.3.7')
 	compile('org.webjars:jquery:2.2.1')
+// https://mvnrepository.com/artifact/org.json/json
+	compile group: 'org.json', name: 'json', version: '20090211'
+
+
 /*https://mvnrepository.com/artifact/javax.servlet/jstl
 	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
