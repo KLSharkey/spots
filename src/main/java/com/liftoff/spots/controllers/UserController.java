@@ -40,11 +40,15 @@ public class UserController {
 
     @RequestMapping(value = "MySpots", method = RequestMethod.GET)
     public String displaySignUpPage(Model model, HttpServletRequest request, HttpServletResponse response) {
-
-        model.addAttribute("title", "Spots");
-        model.addAttribute("user", new User());
         HttpSession session = request.getSession();
-        User myUser = (User) session.getAttribute("userLoggedIn");
+        if (session.getAttribute("userLoggedIn") == null) {
+            return "redirect:/Home";
+        } else {
+
+            model.addAttribute("title", "Spots");
+            model.addAttribute("user", new User());
+            //HttpSession session = request.getSession();
+            User myUser = (User) session.getAttribute("userLoggedIn");
 
         /*ObjectMapper mapper = new ObjectMapper();
 
@@ -73,40 +77,47 @@ public class UserController {
         arrayNode.add(objectNode1);
         arrayNode.add(objectNode2);
         arrayNode.add(objectNode3);*/
-        Iterable<Spot> allSpots= spotDAO.findAll();
-        ArrayList<Spot> mySpots = new ArrayList<Spot>();
-        for (Spot spot : spotDAO.findAll()) {
-           // System.out.println(spot.getUser());
-            if ((spot.getUser()).getId() == myUser.getId()) {
-                System.out.println(spot.getUserID());
-                mySpots.add(spot);
+            Iterable<Spot> allSpots = spotDAO.findAll();
+            ArrayList<Spot> mySpots = new ArrayList<Spot>();
+            for (Spot spot : spotDAO.findAll()) {
+                // System.out.println(spot.getUser());
+                if ((spot.getUser()).getId() == myUser.getId()) {
+                    System.out.println(spot.getUserID());
+                    mySpots.add(spot);
 
+                }
             }
-        }
-        System.out.println(mySpots);
-        model.addAttribute("mySpots", mySpots);
+            System.out.println(mySpots);
+            model.addAttribute("mySpots", mySpots);
 
-        return "MySpots";
+            return "MySpots";
+        }
     }
     @RequestMapping(value = "MySpots/ASpot")
     public String bookMarkTutorial (
             @RequestParam(required = true) int spotID,
             Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-System.out.println("right here");
-        model.addAttribute("A spot : " + spotID);
-
-        Spot mySpot = spotDAO.findOne(spotID);
-        double latitude = mySpot.getLatitude();
-        double longitude = mySpot.getLongitude();
-        model.addAttribute("Latitude", latitude);
-        model.addAttribute("Longitude", longitude);
-        model.addAttribute("Longitude" + longitude);
-        System.out.println(latitude);
         HttpSession session = request.getSession();
-        User myUser = (User) session.getAttribute("userLoggedIn");
+        if (session.getAttribute("userLoggedIn") == null) {
+            return "redirect:../Home";
+        } else {
+
+            System.out.println("right here");
+
+            model.addAttribute("A spot : " + spotID);
+
+            Spot mySpot = spotDAO.findOne(spotID);
+            double latitude = mySpot.getLatitude();
+            double longitude = mySpot.getLongitude();
+            model.addAttribute("Latitude", latitude);
+            model.addAttribute("Longitude", longitude);
+            model.addAttribute("Longitude" + longitude);
+            System.out.println(latitude);
+            //HttpSession session = request.getSession();
+            User myUser = (User) session.getAttribute("userLoggedIn");
 
 
-        //session.setAttribute("mySpot", mySpot);
+            //session.setAttribute("mySpot", mySpot);
          /*ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();
          // Create three JSON Objects objectNode1, objectNode2, objectNode3
@@ -125,10 +136,10 @@ System.out.println("right here");
         response.getWriter().write(json);
         String latLong = "{\"lat\":" + mySpot.getLatitude() + ",\"Longitude\":" + mySpot.getLongitude()+ "}";
         request.getSession().setAttribute("latLong", latLong);*/
-       // HttpSession myLocation = request.getSession(true);
-       // myLocation.setAttribute("mySpot", mySpot);
-        //request.getRequestDispatcher("ASpot");
-        //System.out.println(mySpot.getLatitude());
+            // HttpSession myLocation = request.getSession(true);
+            // myLocation.setAttribute("mySpot", mySpot);
+            //request.getRequestDispatcher("ASpot");
+            //System.out.println(mySpot.getLatitude());
 
        /* Map<String, Double> options = new LinkedHashMap<>();
         options.put("lat", mySpot.getLatitude());
@@ -150,10 +161,10 @@ System.out.println(json);*/
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);*/
 
-        return "ASpot";
+            return "ASpot";
+
+        }
 
     }
-
-
 
 }
