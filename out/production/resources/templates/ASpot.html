@@ -6,8 +6,9 @@
 </head>
 
 <body>
-<p th:text="${Latitude}">latitude</p>
+<!--<p th:text="${Latitude}">latitude</p>
 <p th:text="${Longitude}">longitude</p>
+-->
 
     <!--<p id="buttonLabel" name="buttonLabel">Click the button to save your spot.</p><br/>-->
 
@@ -15,9 +16,13 @@
     Back to My Spots
 </a>
 <p id="savedSpot" name="savedSpot"></p>
-
+<p th:text="${spotName}" style="font-size:30px">SpotName</p>
 <div id="map" style="width:400px;height:400px;"></div>
-
+<label th:for="latitude" >Latitude: </label>
+<p id = "latitude" th:text="${Latitude}">latitude</p>
+<label th:for="longitude" >Latitude: </label>
+<p id="longitude" th:text="${Longitude}">longitude</p><br/>
+<p th:text="${spotInfo}">Info</p>
 <p id="demo"></p><br/>
 
 
