@@ -1,33 +1,128 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head>
+    <style>
+        .smalllogo{
+            height: 100px;
+            width: 15%;
+        }
+        .theTable{
+            background-color: lightslategrey;
+            width: 78%;
+            table-layout: fixed;
+        }
+        .spotsName{
+            font-size: 28px;
+            text-align: center;
+
+        }
+        .spotsLink{
+            font-size: 25px;
+            text-align: center;
+
+        }
+        .spotsTable{
+            width: 80%;
+            margin-left: 0;
+
+        }
+        .tableHead{
+            text-align: center;
+            font-size: 30px;
+        }
+        .logout{
+            font-size: 20px;
+            margin-right: 20px;
+            width: 33%;
+        }
+        .header{
+            font-size: 35px;
+        }
+        div.a {
+            line-height: 1.6;
+            height: 100%;
+            width: 220px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background: linear-gradient(to right, lightskyblue , deepskyblue);
+            overflow-x: hidden;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-right: 20px;
+        }
+        .headTD{
+        width: 33%;
+            font-size: 40px;
+        }
+
+
+        .Welcome{
+            font-size: 30px;
+            font-style: italic;
+        }
+        #notCurrent{
+            text-align: center;
+            background-color: #6BB35C;
+            font-size: 20px;
+            padding: 12px 20px;
+
+        }
+        .buttonAdd{
+            padding-left: 40%;
+        }
+        .headCenter{
+            padding-left: 30%;
+        }
+
+    </style>
+</head>
 
 <body>
-<p>Welcome to your Spots!</p><br/>
-
-<button value="Create a new Spot" id="notCurrent" onclick="location.href = '../geolocation/notCurrent';">Add a Spot</button><br/>
-<!--<p th:unless="${mySpots} and ${mySpots.size()}">Not spots yet!</p>-->
-
-
-<table class="table">
-
+<table class="theTable">
     <tr>
-        <th>Spot Name</th>
-        <th>Spot Info</th>
+        <td class="headTD"><img th:src="@{../images/SpotsLogo.jpg}" id="smalllogo" class="smalllogo" alt="Spots logo"/></td>
+        <td class="headTD"><h1 class="header">My Spots</h1></td>
+    </tr>
+</table>
+
+<div class="a">
+<br/>
+    <p class="Welcome">Welcome Back!</p>
+    <p class="Welcome" th:text="${userName}">user</p>
+    <br/>
+    <bold><a class="logout" href="../login/logout">Logout</a></bold>
+
+<!--<p th:unless="${mySpots} and ${mySpots.size()}">Not spots yet!</p>-->
+</div>
+
+<table class="spotsTable">
+
+    <tr class="headCenter">
+        <th class="tableHead">Spot Name</th>
+        <th class="tableHead">Spot Info</th>
 
     </tr>
 
     <tr th:each="spot : ${mySpots}">
-        <td th:text="${spot.getSpotName()}"></td>
-        <td th:text="${spot.getSpotInfo()}"></td>
-        <td><a th:href="@{'MySpots/ASpot?spotID='+ ${spot.getId()}}" style="display:block;">Check it out!</a></td>
+        <td class="spotsName" th:text="${spot.getSpotName()}"></td>
+
+        <td class="spotsLink"><a th:href="@{'MySpots/ASpot?spotID='+ ${spot.getId()}}" style="display:block;">Check it out!</a></td>
 
 
     </tr>
 
 </table>
 
-<a href="../login/logout">Logout</a>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="buttonAdd">
+<button value="Create a new Spot" id="notCurrent" onclick="location.href = '../geolocation/notCurrent';">Add a Spot</button>
+</div>
 
 
 </body>

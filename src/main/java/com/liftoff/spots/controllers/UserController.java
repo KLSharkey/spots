@@ -89,6 +89,7 @@ public class UserController {
             }
             System.out.println(mySpots);
             model.addAttribute("mySpots", mySpots);
+            model.addAttribute("userName", myUser.getName());
 
             return "MySpots";
         }
@@ -115,6 +116,7 @@ public class UserController {
             model.addAttribute("Longitude", longitude);
             model.addAttribute("spotInfo", spotInfo);
             model.addAttribute("spotName", spotName);
+
             model.addAttribute("Longitude" + longitude);
             System.out.println(latitude);
             //HttpSession session = request.getSession();
