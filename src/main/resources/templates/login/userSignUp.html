@@ -59,7 +59,7 @@
                     <label th:for="email">
                         <input th:field="*{email}" placeholder="Email"/>
                     </label>
-                    <span th:errors="*{email}"></span>
+                    <p th:field="${emailError}">error</p>
                 </tr>
             </div>
             <br/>
@@ -68,7 +68,7 @@
                     <label th:for="password">
                         <input th:field="*{password}" placeholder="Password"/>
                     </label>
-                    <span th:errors="*{password}"></span>
+                    <p th:field="${passwordError}">error</p>
                 </tr>
             </div>
             <br/>

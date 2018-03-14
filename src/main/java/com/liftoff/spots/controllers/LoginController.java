@@ -5,6 +5,7 @@ import com.liftoff.spots.models.data.userDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,34 +56,41 @@ public class LoginController {
     //public String formProcessLoginPage(Model model, @ModelAttribute("user") User user,HttpServletRequest request,
                                       // HttpServletResponse response) {
 
-    public String formProcessLoginPage(@ModelAttribute @Valid User myUser, Errors errors,
+    public String formProcessLoginPage(@ModelAttribute User myUser,
                 Model model, HttpServletRequest request, String password,
-                HttpServletResponse response){
+                HttpServletResponse response) {
+
         model.addAttribute("title", "Login");
-            Iterable<User> users = userDao.findAll();
+        Iterable<User> users = userDao.findAll();
 
-            for (User user : users) {
-                if (user.getEmail().equals(myUser.getEmail())) {
-                    if (user.getPassword().equals(myUser.getPassword())) {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("userLoggedIn", user);
-                        System.out.println(user.getEmail());
+        for (User user : users) {
+            if (user.getEmail().equals(myUser.getEmail())) {
+                if (user.getPassword().equals(myUser.getPassword())) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userLoggedIn", user);
+                    //System.out.println(user.getEmail());
 
-                        return "redirect: ../../../MySpots";
+                    return "redirect: ../../../MySpots";
 
-                    } else {
+                } else {
                         //return login page with password error
                         model.addAttribute("title", "Login");
-                        model.addAttribute("passwordError", "Incorrect password.");
-                        return "";
+                       model.addAttribute("passwordError", "Incorrect password.");
+                        return "login/userLogIn";
                     }
                 }
             }
-            //return login page with username error
             model.addAttribute("title", "Login");
-            model.addAttribute("usernameError", "An account doesn't exist under that email.");
-            return "";
+
+            model.addAttribute("emailError", "Email not in system.");
+            return "login/userLogIn";
         }
+            //return login page with username error
+            //model.addAttribute("title", "Login");
+            // model.addAttribute("usernameError", "An account doesn't exist under that email.");
+
+
+
 
 
     @RequestMapping(value="signup", method = RequestMethod.POST)
