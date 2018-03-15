@@ -104,4 +104,17 @@ public class LoginController {
 
     }
 
+    @RequestMapping(value = "logout",  method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("userLoggedIn");
+        if (session.getAttribute("userLoggedIn") == null){
+            System.out.println(session.getAttribute("userLoggedIn"));
+        }
+
+
+
+        return "redirect:/Home";
+    }
+
 }
