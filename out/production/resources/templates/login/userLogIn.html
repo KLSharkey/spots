@@ -1,52 +1,119 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <style>
+        body {background-color: #040837;}
+        fieldset {
+            margin: 8px;
+            border: 1px solid silver;
+            padding: 8px;
+            border-radius: 4px;
+            background: white;
+        }
+        .toCenter{
+            text-align: center;
+
+        }
+        .container{
+            line-height: 1.9;
+            font-size: 150%;
+        }
+        title{
+            left: 0;
+        }
+        .button{
+           background-color: #6BB35C;
+            font-size: 80%;
+            padding: 12px 20px;
+            text-align: center;
+            margin: auto;
+
+        }
+
+        label{
+            display:inline-block;
+            width:200px;
+            margin-right:30px;
+            text-align:right;
+        }
+        .logo{
+            height: 100px;
+            width: 8%;
+        }
+        .form-group{
+
+        }
+        .center{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .signup{
+            margin-left: 30%;
+        }
+        .buttondiv{
+            margin-left: 40%;
+        }
+        .error{
+            color: red;
+            font-size: 20px;
+        }
+        input{
+            height:50px;
+            font-size:16pt;
+        }
+
+    </style>
+</head>
 <body>
 
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 
-
+<img th:src="@{../images/SpotsLogo.jpg}" id="logo" class="logo" alt="Spots logo"/>
 <div class="container">
 
-    <h1 th:text="${title}">Title</h1>
+
+<fieldset>
+    <div class="toCenter">
+    <h1>SIGN IN</h1>
+
+        <div class="center">
 
     <form method="post" style="max-width:600px;" th:object="${user}">
 
         <div class="form-group">
-            <label th:for="username">Email</label>
+            <label th:for="email">Email</label>
             <input class="form-control" th:field="*{email}" />
-            <div th:if="${emailError}" class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-                </div>
-                <div th:text="${emailError}" class="panel-body">
-                    Error message
-                </div>
+            <p class="error" th:text="${emailError}">Email Error</p>
+
             </div>
-        </div>
+
 
         <div class="form-group">
             <label th:for="password">Password</label>
             <input type="password" class="form-control" th:field="*{password}" />
-            <div th:if="${passwordError}" class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-                </div>
-                <div th:text="${passwordError}" class="panel-body">
-                    Error message
-                </div>
-            </div>
+            <p class="error" th:text="${passwordError}">Password Error</p>
+
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Submit" />
 
+<div class="buttondiv">
+    <br/>
+        <input type="submit" class="button" value="Submit" />
+</div>
         <br/><br/>
 
         <div>
-            <p>Need to create an account? Sign up here! <a style="color: black;" href="/signup">Signup</a></p>
+
+            <p class="signup">Need to create an account? <a style="color: black;" href="../login/signup"> Sign up here!</a></p>
         </div>
 
     </form>
+        </div>
+    </div>
+</fieldset>
 </div>
 
 </body>

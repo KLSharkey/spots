@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
-    <head th:replace="fragments :: head"></head>
 
+<style>
+    body {background-color: #040837;}
+    fieldset {
+        margin: 8px;
+        border: 1px solid silver;
+        padding: 8px;
+        border-radius: 4px;
+        background: white;
+    }
+    .theForm{
+        margin: auto;
+        margin-left: 400px;
+        font-size: 20px;
+    }
+    .signupP{
+        font-size: 30px;
+    }
+    input{
+        height:50px;
+        font-size:16pt;
+    }
+    .smalllogo{
+        height: 100px;
+        width: 15%;
+    }
+    .theTable{
+        background-color: lightslategrey;
+        width: 100%;
+    }
+
+</style>
     <body class="container">
+    <table class="theTable">
+        <tr>
+            <td><img th:src="@{../images/SpotsLogo.jpg}" id="smalllogo" class="smalllogo" alt="Spots logo"/></td>
+            <td style="text-align: center"><h1 class="header">Sign up and start saving your spots</h1></td>
+        </tr>
+    </table>
 
-    <h1 th:text="${title}"></h1>
-
-    <p>Sign up with your email and password:</p>
-    <form method="post" th:object="${user}">
+<fieldset>
+    <p class="signupP">Sign up with your email and password:</p>
+    <form  class="theForm" method="post" th:object="${user}">
         <table>
             <div>
                 <tr>
@@ -18,40 +53,41 @@
                     <span th:errors="*{name}"></span>
                 </tr>
             </div>
+            <br/>
             <div>
                 <tr>
                     <label th:for="email">
                         <input th:field="*{email}" placeholder="Email"/>
                     </label>
-                    <span th:errors="*{email}"></span>
+                    <p th:field="${emailError}">error</p>
                 </tr>
             </div>
+            <br/>
             <div>
                 <tr>
                     <label th:for="password">
-                        <input th:field="*{password}" placeholder="Password"/>
+                        <input type="password" th:field="*{password}" placeholder="Password"/>
                     </label>
-                    <span th:errors="*{password}"></span>
+                    <p th:field="${passwordError}">error</p>
                 </tr>
             </div>
+            <br/>
             <div>
                 <tr>
                     <label>
-                        <input placeholder="Verify Password"/>
+                        <input type="password" placeholder="Verify Password"/>
                     </label>
                     <span></span>
                 </tr>
             </div>
         </table>
-
+        <br/>
         <input type="submit" value="Sign Up"/>
     </form>
 
     <p>Already have an account? <a href="existing">SIGN IN</a> here!</p>
-    <br/>
-    <h2>OR</h2>
-    <br/>
-    <p>Sign up with your social accounts:</p>
+</fieldset>
+
 
 
     </body>

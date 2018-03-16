@@ -3,23 +3,82 @@
 <head>
 
     <title>My Spot</title>
+    <style>
+        .smalllogo{
+            height: 100px;
+            width: 15%;
+        }
+        .theTable{
+            background-color: lightslategrey;
+            width: 78%;
+            table-layout: fixed;
+        }
+        div.a {
+            line-height: 1.6;
+            height: 100%;
+            width: 220px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background: linear-gradient(to right, lightskyblue , deepskyblue);
+            overflow-x: hidden;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-right: 20px;
+        }
+        .about{
+            font-size: 30px;
+        }
+        .header{
+            font-size: 50px;
+        }
+        a{
+            font-size: 20px;
+        }
+        .mapAndLoc{
+            width: 80%;
+            padding-left: 160px;
+        }
+
+    </style>
 </head>
 
 <body>
-<p th:text="${Latitude}">latitude</p>
-<p th:text="${Longitude}">longitude</p>
+<table class="theTable">
+    <tr>
+        <td class="headTD"><img th:src="@{../images/SpotsLogo.jpg}" id="smalllogo" class="smalllogo" alt="Spots logo"/></td>
+        <td class="headTD"><p class="header" th:text="${spotName}">spot name</p></td>
+    </tr>
+</table>
 
-    <!--<p id="buttonLabel" name="buttonLabel">Click the button to save your spot.</p><br/>-->
+<div class="a">
+    <br/>
 
-<a href="../MySpots">
-    Back to My Spots
-</a>
+
+    <a href="../MySpots">
+        Back to My Spots
+    </a>
+    <br/>
+    <bold><a class="logout" href="../login/logout">Logout</a></bold>
+
+    <!--<p th:unless="${mySpots} and ${mySpots.size()}">Not spots yet!</p>-->
+</div>
+
+
 <p id="savedSpot" name="savedSpot"></p>
-
+<!--<p th:text="${spotName}" style="font-size:30px">SpotName</p>-->
+<div class="mapAndLoc">
 <div id="map" style="width:400px;height:400px;"></div>
-
+<label th:for="latitude" >Latitude: </label>
+<p id = "latitude" th:text="${Latitude}">latitude</p>
+<label th:for="longitude" >Latitude: </label>
+<p id="longitude" th:text="${Longitude}">longitude</p><br/>
+    <p class="about">About My Spot:</p>
+<p th:text="${spotInfo}">Info</p>
 <p id="demo"></p><br/>
-
+</div>
 
 <!--<button value = "Save new location" id="newLocation" name = "newLocation">Save new Location</button>-->
 <!--<button th:onclick="${'getLocation()'}">Save Spot!</button>-->

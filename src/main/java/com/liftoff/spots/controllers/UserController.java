@@ -89,6 +89,7 @@ public class UserController {
             }
             System.out.println(mySpots);
             model.addAttribute("mySpots", mySpots);
+            model.addAttribute("userName", myUser.getName());
 
             return "MySpots";
         }
@@ -109,8 +110,13 @@ public class UserController {
             Spot mySpot = spotDAO.findOne(spotID);
             double latitude = mySpot.getLatitude();
             double longitude = mySpot.getLongitude();
+            String spotInfo = mySpot.getSpotInfo();
+            String spotName = mySpot.getSpotName();
             model.addAttribute("Latitude", latitude);
             model.addAttribute("Longitude", longitude);
+            model.addAttribute("spotInfo", spotInfo);
+            model.addAttribute("spotName", spotName);
+
             model.addAttribute("Longitude" + longitude);
             System.out.println(latitude);
             //HttpSession session = request.getSession();
